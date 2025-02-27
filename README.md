@@ -1,70 +1,140 @@
 # 10.4 Interfaces and Abstract Classes
 
-## Objective
-The objective of this assignment is to create a shape hierarchy in Java using interfaces, abstract classes, and concrete classes. The application should allow users to create different shapes, calculate their area, and display their properties.
+### **Objective**  
+Students will create a Java program in which they define their own scenario and implement the following concepts:  
+- **An Interface** (with at least three methods)  
+- **An Abstract Class** (that implements the interface and includes additional abstract methods)  
+- **Two Subclasses** (that extend the abstract class and provide concrete implementations)  
+- **A Third Unrelated Class** (that implements the interface but is not related to the abstract class hierarchy)  
 
-## Instructions
+### **Instructions**  
+1. **Create a Scenario**:  
+   - Choose a real-world or fictional scenario where multiple objects share common behavior but also have distinct characteristics.  
+   - Example ideas:  
+     - A **Vehicle System** where `Vehicle` is an abstract class, `Car` and `Bike` are subclasses, and `Drone` is an unrelated class implementing a `Movable` interface.  
+     - A **Game Character System** where `Character` is an abstract class, `Warrior` and `Mage` are subclasses, and `Monster` is an unrelated class implementing an `Attackable` interface.  
+     - A **Smart Home System** where `Appliance` is an abstract class, `Refrigerator` and `AirConditioner` are subclasses, and `SmartSpeaker` is an unrelated class implementing a `Controllable` interface.  
 
-1. **Create an Interface `Shape`**
-    - Methods:
-        - `double getArea()`: Returns the area of the shape.
-        - `void display()`: Displays the properties of the shape.
+2. **Define an Interface (`YourInterface`)**  
+   - The interface should include at least **three method signatures** that describe behaviors common across multiple classes.  
+   - Example: A `Movable` interface might include:  
+     ```java
+     public interface Movable {
+         void startMoving();
+         void stopMoving();
+         int getSpeed();
+     }
+     ```  
 
-2. **Create an Abstract Class `TwoDimensionalShape` that Implements `Shape`**
-    - Fields:
-        - `String color`
-    - Constructor:
-        - Accepts a `String` parameter for the color.
-    - Methods:
-        - Implement `display()` to print the color of the shape.
-        - `String getColor()`: Returns the color of the shape.
+3. **Create an Abstract Class (`YourAbstractClass`)**  
+   - Implement the interface in an abstract class.  
+   - Define at least **one abstract method** that subclasses must implement.  
+   - Include **instance variables** and **at least one concrete method**.  
+   - Example:
+     ```java
+     public abstract class Vehicle implements Movable {
+         protected String name;
+         protected int speed;
+         
+         public Vehicle(String name) {
+             this.name = name;
+             this.speed = 0;
+         }
 
-3. **Create Concrete Classes `Circle` and `Rectangle` that Extend `TwoDimensionalShape`**
-    - **Class `Circle`**
-        - Fields:
-            - `double radius`
-        - Constructor:
-            - Accepts `String` color and `double` radius.
-        - Methods:
-            - Implement `getArea()`: Returns the area of the circle.
-            - Override `display()` to print the radius and area of the circle.
+         @Override
+         public void startMoving() {
+             this.speed = 10;
+             System.out.println(name + " starts moving.");
+         }
 
-    - **Class `Rectangle`**
-        - Fields:
-            - `double width`
-            - `double height`
-        - Constructor:
-            - Accepts `String` color, `double` width, and `double` height.
-        - Methods:
-            - Implement `getArea()`: Returns the area of the rectangle.
-            - Override `display()` to print the width, height, and area of the rectangle.
+         @Override
+         public int getSpeed() {
+             return speed;
+         }
 
-4. **Create a `Main` Class with a `main` Method**
-    - The `main` method should:
-        - Create instances of `Circle` and `Rectangle`.
-        - Display their properties and areas.
+         // Abstract method to be implemented by subclasses
+         public abstract void honk();
+     }
+     ```  
 
-## Sample Output
-```
-Circle:
-Color: Red
-Radius: 5.0
-Area: 78.53981633974483
+4. **Create Two Subclasses (`SubClass1` and `SubClass2`)**  
+   - These should extend the abstract class and **implement its abstract method(s)**.  
+   - They can have additional attributes and behaviors.  
+   - Example:
+     ```java
+     public class Car extends Vehicle {
+         public Car(String name) {
+             super(name);
+         }
 
-Rectangle:
-Color: Blue
-Width: 4.0
-Height: 6.0
-Area: 24.0
-```
+         @Override
+         public void honk() {
+             System.out.println(name + " honks: Beep Beep!");
+         }
+     }
 
-## Submission Instructions
-- Submit your Java source files (`Shape.java`, `TwoDimensionalShape.java`, `Circle.java`, `Rectangle.java`, and `Main.java`).
-- Ensure your code is well-documented with comments explaining the functionality of each method and class.
-- Test your application thoroughly to ensure it calculates areas correctly and displays properties as expected.
+     public class Bike extends Vehicle {
+         public Bike(String name) {
+             super(name);
+         }
 
-## Grading Criteria
-- Code correctness and functionality: 50%
-- Use of interfaces, abstract classes, and concrete classes: 30%
-- Code readability and documentation: 10%
-- User interface and experience: 10%
+         @Override
+         public void honk() {
+             System.out.println(name + " rings the bell: Ring Ring!");
+         }
+     }
+     ```  
+
+5. **Create a Third Unrelated Class (`UnrelatedClass`)**  
+   - This class **should not extend the abstract class** but **should implement the interface** directly.  
+   - Example:
+     ```java
+     public class Drone implements Movable {
+         private int speed;
+
+         public Drone() {
+             this.speed = 0;
+         }
+
+         @Override
+         public void startMoving() {
+             this.speed = 20;
+             System.out.println("Drone is flying at speed: " + speed);
+         }
+
+         @Override
+         public void stopMoving() {
+             this.speed = 0;
+             System.out.println("Drone has stopped.");
+         }
+
+         @Override
+         public int getSpeed() {
+             return speed;
+         }
+     }
+     ```  
+
+6. **Write a `Main` Class to Test Your Code**  
+   - Create objects of each class and call their methods.  
+   - Example:
+     ```java
+     public class Main {
+         public static void main(String[] args) {
+             Car myCar = new Car("Toyota");
+             Bike myBike = new Bike("Mountain Bike");
+             Drone myDrone = new Drone();
+
+             myCar.startMoving();
+             myCar.honk();
+             
+             myBike.startMoving();
+             myBike.honk();
+
+             myDrone.startMoving();
+             System.out.println("Drone speed: " + myDrone.getSpeed() + " km/h");
+             myDrone.stopMoving();
+         }
+     }
+     ```  
+
