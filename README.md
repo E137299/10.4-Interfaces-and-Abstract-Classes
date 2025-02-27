@@ -2,7 +2,7 @@
 
 ### **Objective**  
 Students will create a Java program in which they define their own scenario and implement the following concepts:  
-- **An Interface** (with at least three methods)  
+- **An Interface** (with at least two methods)  
 - **An Abstract Class** (that implements the interface and includes additional abstract methods)  
 - **Two Subclasses** (that extend the abstract class and provide concrete implementations)  
 - **A Third Unrelated Class** (that implements the interface but is not related to the abstract class hierarchy)  
